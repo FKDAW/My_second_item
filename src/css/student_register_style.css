@@ -151,6 +151,20 @@ height: 20px;
   line-height: 20px;
   font-size:15px;
 }
+#student_select__content_right #student_div{
+    height: 100px;
+    width: 100px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-top: -150px;
+    margin-left: -100px;
+    z-index: 99;
+    background-color: #fdfdfd;
+}
+.student_div_hide{
+    display: none;
+}
     #teacher_content{
       /*教学评价*/
       background-color: orange;
@@ -182,11 +196,11 @@ height: 20px;
   margin: 0 auto;
  position: relative;
 }
-#in_content_div div{
+#in_content_div>div{
   height: 100%;
   width: 400px;
 }
-#in_content_div>div>label{
+#in_content_div>div label{
   display: inline-block;
   padding-top: 10px;
   margin-left: 10px;
@@ -194,7 +208,7 @@ height: 20px;
   line-height: 30px;
   /*background-color: red;*/
 }
-#in_content_div>div>p{
+#in_content_div>div p{
   display: inline-block;
   float: right;
   padding-top: 10px;

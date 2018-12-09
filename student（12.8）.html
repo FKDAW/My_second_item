@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学生登录页面</title>
+     <link rel="stylesheet" href="src/css/student_register_style.css">
+     <script src="src/js/jQuery-1.12.4.js"></script>
+      <script src="src/js/echarts.js"></script>
+</head>
+<body>
+<!--顶部区域-->
+<div class="header">
+  <div class="top-in">
+    <div class="top-left"><h1><a href="#"></a></h1></div>
+    <div class="top-right">
+      <div class="top-nav">
+        <ul class="nav">
+          <li><a href="#" id="s-select">学生选课</a> </li>
+          <li><a href="#">成绩信息</a> </li>
+          <li><a href="#">个人信息</a> </li>
+          <li><a href="#" id="coursemanger">课程管理</a> </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!--内容-->
+<div class="content">:
+  <!--学生选课-->
+  <div class="content-in-none" id="student_select_content">
+  <div id="student_select_type">
+    <ul>
+      <li class="selected"><a href="javascript:">选修</a></li>
+      <li><a href="javascript:">专选</a></li>
+    </ul>
+  </div>
+  <div id="student_select__content_right">
+      <div id="student_unselected">
+        <h2>未选课程</h2>
+        <ul>
+        </ul>
+      </div>
+      <div id="student_selected">
+        <h2>已选课程</h2>
+        <ul>
+        </ul>
+      </div>
+      <div id="student_div" class="student_div_hide">
+        <i class="icon-cross"></i>
+        <button id="student_div_submit">确定</button>
+      </div>
+    </div>
+  </div>
+  <!--成绩信息-->
+  <div class="content-in" id="credit_content">
+    <div id="term"><label>学期 :</label><select>
+    </select></div>
+    <div id="chart"></div>
+  </div>
+  <!--个人信息-->
+  <div class="content-in-none" id="in_content">
+    <div id="in_content_div">
+    <div>
+      <label>学号:</label><p>20123</p><br/>
+      <label>姓名:</label><p>杜</p><br/>
+      <label>年龄:</label><p>18</p><br/>
+      <label>政治面貌:</label><p>共青</p><br/>
+      <label>学院:</label><p>计算机</p><br/>
+      <label>年级:</label><p>2016</p><br/>
+      <label>班级:</label><p>1602</p><br/>
+      <label>专业:</label><p>软件工程</p><br/>
+      <label>籍贯:</label><p></p><br/>
+      <label>民族:</label><p></p><br/>
+      <label>证件类型:</label><p></p><br/>
+      <label>证件号:</label><p></p><br/>
+      <label>宿舍:</label><p></p><br/>
+      <label>家庭住址:</label><input type="text"><br/>
+      <label>手机号:</label><input type="text"><br/>
+      <label>QQ号:</label><input type="text"><br/>
+      <label>密码:</label><input type="text"><br/>
+      <button id="password">保存</button>
+    </div>
+      <div id="pas_div" class="pas_div_hide">
+        <i class="icon-cross"></i>
+        <label>确认保存</label>
+        <!--<input type="password">-->
+        <button id="pas_div_submit">确定</button>
+        </div>
+    </div>
+  </div>
+  <!--课程管理-->
+  <div class="content-in-none" id="course_content">
+    <div id="type">
+      <ul>
+        <li class="selected"><a href="javascript:">必修</a></li>
+        <li><a href="javascript:">选修</a></li>
+        <li><a href="javascript:">专选</a></li>
+      </ul>
+    </div>
+    <div id="course_content_right">
+    </div>
+  </div>
+</div>
+<script>
+  window.onload=function () {
+      <!--存储id-->
+      var student_number=window.sessionStorage;
+      var url = window.location.href;
+      var result = url.split("?")[1];
+      if(result==undefined)
+    	{
+    	  window.location.href="login.html";
+    	}
+      console.log(result);
+      var id = result.split("=")[1];
+      student_number.setItem("student_number",id);
+      console.log(student_number.getItem("student_number"));
+      var student_id=parseInt(student_number.getItem("student_number"));
+      
+      <!--存储学生id-->
+    /*   var student_number=window.sessionStorage;
+      student_number.setItem("student_number",2016102004);     
+      var student_id=parseInt(student_number.getItem("student_number")); */
+		
+      //学生选课开关
+      $.ajax({
+    	  url:"selectCourseSwitch",
+    	  success:function(t){
+    		  console.log(t.data);
+    		  student_number.setItem("student_kg",t.data);
+    		  if(student_number.getItem("student_kg")==="0")
+    			  {   			  
+    			  		$('#student_select_content')[0].style.display="none";
+    			  }
+    	  }
+      })
+<!--导航栏-->
+    var $navs=$('.nav').children();
+    var $contents=$('.content').children();
+    $navs.click(function () {
+      var count;
+      for(var i in $navs)
+      {
+        if(this==$navs[i])
+          count=i;
+      }
+      for (var key=0;key<5;key++)
+      {
+        $contents.attr("class","content-in-none");
+      }
+      $contents.eq(count).attr("class","content-in");
+      
+      $('#s-select').click(function(){
+    	  if(student_number.getItem("student_kg")===0)
+    		  {
+    		  $('#student_select_content')[0].style.display="none";
+    		  }
+      })  
+    });
+    <!--学生选课-->
+    var $s_s_types=$('#student_select_type').find("li");
+    var $unselected_course=$('#student_unselected ul');
+    var $selected_course=$('#student_selected ul');
+    $s_s_types.click(function () {
+        for (var key = 0; key < 2; key++) {
+            $s_s_types.attr("class", "");
+        }
+        $(this).attr("class", "selected");
+        <!--删除原有的课程-->
+        var $s_div = $('#student_select__content_right ul li');
+        $s_div.remove();
+        <!--显示课程（选修，专选）-->
+        $.ajax({
+            url: "/canSelectCourse",
+            dataType : "json",
+            data: {
+            	"school_number":student_id,
+                "course_type": $(this).text()
+            },
+            timeout: 3000,
+            success: function (s_shr) {
+                for (var key in s_shr.data) {
+                    var selected_div = $('<li class="selected_div"><h3></h3></li>');
+                    selected_div.attr("id", s_shr.data[key].course_id);
+                    selected_div.find("h3").text(s_shr.data[key].course_name);
+                    /* selected_div.find("h4").text(s_shr.data[key].class_time); */
+
+                    $unselected_course.append(selected_div);
+                }
+            },
+        });
+        <!--显示已经选了的课-->
+         $.ajax({
+            url: "selectCourse",
+            data: {
+            	"school_number":student_id
+            },
+            timeout: 3000,
+            success: function (s_shr) {
+                for (var key in s_shr.data) {
+                    var selected_div = $('<li class="selected_div"><h3></h3></li>');
+                    selected_div.attr("id", s_shr.data[key].course_id);
+                    selected_div.find("h3").text(s_shr.data[key].course_name);
+                   /*  selected_div.find("h4").text(s_shr.data[key].class_time); */
+
+                    $selected_course.append(selected_div);
+                }
+            },
+        }); 
+    });
+        <!--委托-->
+        var course_type;
+        var stt_div = $('#student_div');
+        $('#student_select__content_right').delegate("li", "click", function () {
+            stt_div.attr("class", "");
+            course_type = $(this);
+        });
+        var stt_div_sut = $('#student_div_submit');
+        stt_div_sut.click(function () {
+            stt_div.attr("class", "pas_div_hide");
+            var selected_div = $('<li class="selected_div"><h3></h3></li>');
+            selected_div.attr("id",course_type.attr("id"));
+            selected_div.find("h3").text(course_type.find("h3").text());
+           /*  selected_div.find("h4").text(course_type.find("h4").text()); */
+            // console.log($(this).parent().parent().attr('id'));
+            if (course_type.parent().parent().attr('id') == "student_unselected") {
+                $.ajax({
+                    url:"insertSelectCourse",
+                    data:{
+                    	"school_number":student_id,
+                        "course_number":selected_div.attr("id")
+                    }
+                });
+                $selected_course.append(selected_div);
+            } else {
+                $.ajax({
+                    url:"deleteSelectCourse",
+                    data:{
+                    	"school_number":student_id,
+                        "course_number":selected_div.attr("id")
+                    }
+                });
+                $unselected_course.append(selected_div);
+            }
+            course_type.remove();
+        });
+
+        <!--成绩信息-->
+        var snames = [];
+        var scores = [];
+        var mycharts = echarts.init(document.getElementById("chart"));     
+        <!--选择学期-->
+      $.ajax({
+          url:"/selectAllTerm",
+        /*    dataType : "json",  */
+          data:{
+              "school_number":student_id
+          },
+          success:function (shr) {
+              for(var key in shr.data)
+              {
+                  var opt=$('<option></option>');
+                  opt.text(shr.data[key]);
+                  $('#term select').append(opt);
+              }
+          }
+      });
+        $('#term select').change(function () {
+            /* alert($(this).children('option:selected').text()); */
+            $.ajax({
+                url:"selectTermAllCourse",
+                data: {
+                	"school_number":student_id,
+                    "term_year": $(this).children('option:selected').text()
+                },
+                success:function (shr) {
+                    snames.length = 0;
+                    scores.length = 0;
+                    for (var i = 0; i < shr.data.length; i++) {
+                        snames.push(shr.data[i].course_name);
+                        scores.push(shr.data[i].final_course_grade)
+                    }
+                    mycharts.setOption({
+                        xAxis: {
+                            type: 'category',
+                            data: snames,
+                            "axisLabel": {
+                                interval: 0
+                            }
+                        },
+                        yAxis:[
+                        	{}
+                        ],                      
+                        series: [{
+                            name: '分数',
+                            type: 'bar',
+                            data: scores,
+                            markPoint: {
+                                data: [
+                                    {name: '年最高', value: 82.2, xAxis: 7, yAxis: 83},
+                                    {name: '年最低', value: 2.3, xAxis: 11, yAxis: 3}
+                                ]
+                            },
+                            markLine: {
+                                data: [
+                                    {type: 'average', name: '平均值'}
+                                ]
+                            }
+                        }]
+                    });
+                }
+            });
+        });
+
+        <!--个人信息-->
+        var in_conent_p = $('#in_content_div p');
+        var in_conent_inp=$('#in_content_div input');
+         $.ajax({
+            url:"selectStudentInformation",
+            data:{
+            	"school_number":student_id
+            },
+            success:function (in_shr) {
+            	/* alert("da");
+            	console.log(in_shr); */
+               /*  for (var key in in_shr.data) { */
+                    in_conent_p.eq(0).text(in_shr.data.school_number);
+                    in_conent_p.eq(1).text(in_shr.data.name);
+                    in_conent_p.eq(2).text(in_shr.data.age);
+                    in_conent_p.eq(3).text(in_shr.data.political_status);
+                    in_conent_p.eq(4).text(in_shr.data.academy);
+                    in_conent_p.eq(5).text(in_shr.data.grade);
+                    in_conent_p.eq(6).text(in_shr.data.student_class);
+                    in_conent_p.eq(7).text(in_shr.data.specialty);
+                    in_conent_p.eq(8).text(in_shr.data.native_place);
+                    in_conent_p.eq(9).text(in_shr.data.nation);
+                    in_conent_p.eq(10).text(in_shr.data.certificate_type);
+                    in_conent_p.eq(11).text(in_shr.data.certificate);
+                    in_conent_p.eq(12).text(in_shr.data.dorm);
+                    in_conent_inp.eq(0).val(in_shr.data.address);
+                    in_conent_inp.eq(1).val(in_shr.data.cell_phone_number);
+                    in_conent_inp.eq(2).val(in_shr.data.qq);
+                    in_conent_inp.eq(3).val(in_shr.data.login_password);
+               /*  } */
+            }
+        }); 
+
+        <!--修改密码-->
+        var pas = $('#password');
+        pas.click(function () {
+            var pas_div = $('#pas_div');
+            // $('#pas_div input').val("");
+            pas_div.attr("class", "");
+        });
+        <!--提交新密码-->
+        var pas_submit = $('#pas_div_submit');
+        pas_submit.click(function () {
+            // var new_pas = $('#pas_div input').val();
+            $.ajax({
+                url:"updateStudentInformation",
+                data:{
+                	"school_number":student_id,
+                    "address": in_conent_inp.eq(0).val(),
+                    "cell_phone_number":in_conent_inp.eq(1).val(),
+                    "qq":in_conent_inp.eq(2).val(),
+                    "login_password":in_conent_inp.eq(3).val()
+                }
+            });
+            $('#pas_div').attr("class", "pas_div_hide");
+        });
+        <!--取消-->
+        $('.icon-cross').click(function () {
+            $('#pas_div').attr("class", "pas_div_hide");
+        });
+        <!--课程管理-->
+        <!--点击课程类型-->
+        var types = $('#type').find("li");
+        types.click(function () {
+            for (var key = 0; key < 3; key++) {
+                types.attr("class", "");
+            }
+            $(this).attr("class", "selected");
+            <!--删除原有的课程-->
+            var $imgs = $('.images');
+            $imgs.remove();
+            <!--显示课程（必修，选修，专选）-->
+            /* alert($(this).text()); */
+
+            $.ajax({
+                url:"selectStudentCourseInformation",
+                data:{
+                	"school_number":student_id,
+                    "course_category":$(this).text()
+                },
+                success:function (shr) {
+                    for (var key in shr.data) {
+                            var $course_r = $('#course_content_right');
+                            var $img = $("<img src=''>");
+                            $img.attr("src", shr.data[key].course_pic);
+                            $img.attr("class", "images");
+                            $img.attr("course_name", shr.data[key].course_name);
+
+                            $img.attr("period", shr.data[key].period);
+                            $img.attr("credit", shr.data[key].credit);
+                            $img.attr("course_category", shr.data[key].course_category);
+                            $img.attr("set_college", shr.data[key].set_college);
+
+                            $course_r.append($img);
+                    }
+                }
+            });
+        });
+        <!--弹出课程详情-->
+        $('#course_content_right').delegate("img", "click", function () {
+            var $img_div = $("<div class='images_div'><img src=''><div class='images_div_right'>" +
+                "<label>名称 :</label><p>计算机组成原理</p><br>" +
+                "<label>学时 :</label><p>组成原理</p><br>" +
+                "<label>学分 :</label><p>组成原</p><br>" +
+                "<label>课程类型 :</label><p>组原理</p><br>" +
+                "<label>开设学院 :</label><p></p><br>" +
+                "<button class='images_div_but'> 确定</button></div></div>");
+            // $img_div_img=$('.images_div>img');
+            $img_div_img = $img_div.children("img");
+            $img_div_img.attr("src", $(this).attr("src"));
+            <!--五个字段-->
+            // $images_div_rights=$('.images_div_right p');
+            $images_div_rights = $img_div.find("p");
+            $images_div_rights.eq(0).text($(this).attr("course_name"));
+            $images_div_rights.eq(1).text($(this).attr("period"));
+            $images_div_rights.eq(2).text($(this).attr("credit"));
+            $images_div_rights.eq(3).text($(this).attr("course_category"));
+            $images_div_rights.eq(4).text($(this).attr("set_college"));
+
+            $('#course_content_right').append($img_div);
+
+            var $images_div_but = $('.images_div_but');
+            $images_div_but.click(function () {
+                this.parentNode.parentNode.remove();
+            });
+            $('#course_content_right').append($img_div);
+        });
+    }
+</script>
+</body>
+</html>

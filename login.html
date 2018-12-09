@@ -1,0 +1,353 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>登陆界面</title>
+  <script type="text/javascript" src="src/js/jQuery-1.12.4.js"></script>
+  <style type="text/css">
+     * {
+       margin: 0;
+       padding: 0;
+     }
+    #test0{
+      height: 900px;
+      width: 100%;
+      margin: 0 auto;
+      background-image:url('src/img/quanback2.jpg');
+      background-size:cover;
+      position: relative;
+    }/*整个背景框架*/
+    .class1{
+      color: grey;
+      font-size: 20px;
+      position: absolute;
+      margin-top: 420px;
+      margin-left: 550px;
+     /* position: relative;*/
+    }/*登录框*/
+     .table_text{
+       margin-top: 20px;
+       margin-left: -29px;
+     }
+    .class2{
+                  width: 282px;
+                  height: 76px;
+
+               /*  margin-top: 50px;
+                 margin-left: 100px*/;
+               background:url('src/img/xiaohuia.png')no-repeat;
+                 background-size: 100% 100% ;
+                 position: absolute;
+
+               }/*校徽*/
+
+    #test{
+     /* opacity: 0.3;*/
+      width: 550px;
+      height: 687px;
+     /* background:url('src/img/back.jpg')no-repeat;*/
+      position: relative;
+      margin-top: 210px;
+      margin-left: 0px;
+      position: absolute;
+      border: none;
+    }/*整个登录框架*/
+    .class3 {
+      margin-top: 500px;
+      margin-left: 0px;
+      font-family: "Verdana";
+      font-size: 50px;
+      color: #E1E4EC;
+      width: 100%;
+      font-weight:900;
+      filter:DropShadow(Color=#213C63, OffX=1, OffY=1);
+      position: absolute;
+    }  /*校训*/
+     calss4{
+       width: auto;
+       height: auto;
+       margin-top: 500px;
+       margin-left: 500px;
+     }
+     input[ type=text]{
+       width: 200px;
+       height: 20px;
+     } /*账号 框*/
+     input[type=password]{
+       width: 200px;
+       height: 20px;
+     }/*密码框*/
+     input[type=submit]{
+        width: 70px;
+       height: 30px;
+     }
+     .class6{
+          position: absolute;
+         margin-top: 40px;
+     margin-left: 190px;
+     }
+     .class7{
+       margin-top: 40px;
+       margin-left: 90px;
+     }
+     .class8{
+       position: absolute;
+      margin-top: -30px;
+     margin-left: -10px;
+     }
+     .table_text{
+       float: right;
+       margin-right: 100px;
+     }
+    .text {
+      font-family: "Verdana",serif;
+      font-size: 50px;
+      line-height: 16px;
+      color: #666699;
+      text-decoration: none
+    }
+    .unnamed1 {
+      filter: DropShadow(Color=#FFFFFF, OffX=1, OffY=1)
+    }
+    li{
+      list-style: none;
+    }
+    /*验证码css*/
+     .code
+     {
+        background-color: white;
+     /*  font-family:Arial;*/
+       font-style:italic;
+       color:blue;
+       font-size:30px;
+       border:0;
+       padding:2px 3px;
+       letter-spacing:3px;
+       font-weight:bolder;
+       float:left;
+       cursor:pointer;
+       width:150px;
+       height:50px;
+       line-height:60px;
+       text-align:center;
+       vertical-align:middle;
+     }
+     a
+     {
+       text-decoration:none;
+       font-size:12px;
+       color:#288bc4;
+     }
+     a:hover
+     {
+       text-decoration:underline;
+     }
+  </style>
+</head>
+
+<body>
+<div id="test0" >
+  <div class="class4">
+  <div class="class1" >
+    <ul>
+      <li > 账户<input id = "username" type="text"></li>
+      <br>
+      <li> 密码<input  id = "password" type="password" ></li>
+    </ul>
+    <div class="identify_code"     onload="createCode()">
+    <form id="form1" runat="server" onsubmit="validateCode()">
+      <div>
+        <table border="0" cellspacing="5" cellpadding="5" class="table_text">
+          <tr>
+            <td>验证码</td>
+            <td> <input style="float:left;" type="text"  id="inputCode" /></td>
+            <td>请输入验证码</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td><div class="code" id="checkCode" onclick="createCode()" ></div></td>
+            <td><a href="#" onclick="createCode()">看不清换一张</a></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td><input id="Button1" onclick="validateCode();" type="button" value="确定" /></td>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+    </form>
+  </div>
+   <!-- <div class="class6">
+      <input id="student" type="submit" value="学生登陆" >
+    </div>
+    <div class="class7">
+      <input id="teacher"type="submit" value="教师登陆" >
+    </div>
+    <div class="class8">
+      <input id="manger" type="submit" value="管理员登陆" >
+    </div>-->
+  </div>
+</div>
+    <div id="test">
+       <!--   <div class="class1" >
+      <ul>
+        <li > 账户<input type="text"></li>
+        <li> 密码<input type="password" ></li>
+      </ul>
+      <input type="submit" value="登陆" >
+    </div>-->
+      <div class="class2">
+       <!--   <img src="src/img/xiaohui5.jpg" alt="正方形的原始图片" />-->
+
+      </div>
+      <div  class="class3">
+        <table width="500" border="0" cellspacing="1" cellpadding="0" bgcolor="#8C96B5" >
+          <tr> 日思日睿</tr>
+          <td bgcolor="#E1E4EC"> </td>
+        </table>
+              <table width="100%" border="0" cellspacing="8" cellpadding="0" class="unnamed1">
+                <tr> 笃志笃行</tr>
+                  <td class="text" > </td>
+              </table>
+    </div>
+    </div>
+</div>
+<script>
+  window.onload =function()
+  {
+    var man=document.getElementById('manger');
+    var stu=document.getElementById("student");
+
+      var usen=document.getElementById("username");
+      var pass=document.getElementById("password");
+
+    man.onclick = function () {
+      window.location.href="tthough.html";
+
+       $.ajax({
+              url:"",
+              data:{
+                "userName":usen.value,
+                "password":pass.value
+              },
+              timeout:3000,
+          type:"post",
+          success:function (res) {
+
+                  if(res =="管理员")
+                  {
+                    this.location.href="tthough.html";
+                  }
+          },
+          error:function () {
+              alert("登录失败")
+          }
+          })
+    };
+    stu.onclick=function () {
+      var usen=document.getElementById("username");
+      var pass=document.getElementById("password");
+
+      $.ajax({
+          url:"",
+          data:{
+            "userName":usen.value,
+            "password":pass.value
+          },
+          timeout:3000,
+          type:"post",
+          success:function (res) {
+            if(res =="学生")
+            {
+              // this.location.href="tthough.html";
+              alert("学生登录成功");
+            }
+          },
+          error:function () {
+            alert("登录失败")
+          }
+        }
+      )
+    }
+
+  }
+</script>
+<script type="text/javascript">
+  var code;
+  function createCode()
+  {
+    code = "";
+    var codeLength = 4; //验证码的长度
+    var checkCode = document.getElementById("checkCode");
+    var codeChars = new Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+      'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
+      'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'); //所有候选组成验证码的字符，当然也可以用中文的
+    for(var i = 0; i < codeLength; i++)
+    {
+      var charNum = Math.floor(Math.random() * 52);
+      code += codeChars[charNum];
+    }
+    if(checkCode)
+    {
+      checkCode.className = "code";
+      checkCode.innerHTML = code;
+    }
+  }
+  function validateCode()
+  {
+    var inputCode=document.getElementById("inputCode").value;
+    if(inputCode.length <= 0)
+    {
+      alert("请输入验证码！");
+    }
+    else if(inputCode.toUpperCase() != code.toUpperCase())
+    {
+      alert("验证码输入有误！");
+      createCode();
+    }
+    else
+    {
+      alert("验证码正确！");
+      var usen=document.getElementById('username').value;
+      var pass=document.getElementById('password');
+      console.log(typeof usen);
+        console.log(usen);
+        console.log(pass.value);
+        $.ajax({
+            url:"Login",
+            data:{
+                "username":usen,
+                "password":pass.value
+            },
+            success:function (str) {
+            /* 	console.log(str);
+            	console.log(str.data);
+            	console.log(str.code); */
+            	if(str.code==-1)
+            	{
+            		alert("账号密码错误");
+            	}else{
+                    if(str.data.flag=="学生")
+                    {
+                        alert("学生");
+                        window.location.href="student.html?school_number="+str.data.id;
+                    }else if (str.data.flag=="老师"){
+                        alert("老师");
+                        window.location.href="teacher.html?straff_number="+str.data.id;
+                    }else if(str.data.flag=="管理员"){
+                        alert("管理员");
+                        window.location.href="manager.html?administrator_id="+str.data.id;
+                    }
+            	}   
+            },
+            error:function(){
+            	alert("账号密码错误");
+            }
+        })
+
+    }
+  }
+</script>
+</body>
+</html>
+

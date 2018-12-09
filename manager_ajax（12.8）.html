@@ -1,0 +1,2143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>管理员登陆页面</title>
+  <script type="text/javascript" src="src/js/jQuery-1.12.4.js"></script>
+  <script language="JavaScript"></script>
+  <style type="text/css">
+    *{
+      margin:0;
+      padding:0;
+    }
+
+    /* 1.0 改  清除下拉框的样式*/
+    select {
+      border: solid 1px #000;
+
+      /*将默认的select选择框样式清除*/
+      appearance:none;
+      -moz-appearance:none;
+      -webkit-appearance:none;
+
+      /*在选择框的最右侧中间显示小箭头图片*/
+      background: url("https://raw.githubusercontent.com/ourjs/static/gh-pages/2015/arrow.png") no-repeat scroll right center transparent;
+      color:#03b2eb;
+
+      /*为下拉小箭头留出一点位置，避免被文字覆盖*/
+      padding-right: 14px;
+    }
+
+    /*清除ie的默认选择框样式清除，隐藏下拉箭头*/
+    select::-ms-expand { display: none; }
+
+    ol,ul,li{ padding:0;margin:0;list-style:none;}
+    a{text-decoration:none;color: black;}
+    a:hover{ text-decoration:none;color: #e82c07;}
+    body{
+      font-size:12px;
+      color:#999;
+      background: #f5f5f5 url('src/img/theme.jpg') top;
+    }
+    .header{
+      height:76px;
+      background-color: #87CEEB;
+      /* background-color: #2b2b2b;*/
+    }
+    .header .top-in{
+      width:1200px;
+      margin: 0 auto;
+      height: 100%;
+      /*background-color: #2b2b2b;*/
+    }
+    .header .top-left{
+      float: left;
+      height: 100%;
+      width: 282px;
+    }
+    .top-left>h1{
+      height: 100%;
+      width: 100%;
+    }
+    .top-left>h1>a{
+      display: inline-block;
+      height: 100%;
+      width: 100%;
+      background: url('src/img/xiaohuia.png');
+      margin-left: 200px;
+    }
+    .top-right{
+      float: right;
+      height: 100%;
+      width: 600px;
+    }
+    .top-right #nav{
+      float: left;
+      width: 800px;
+      height: 100%;
+    }
+    .top-right #nav>ul>li{
+      float: left;
+
+    }
+    .top-right #nav>ul>li>a{
+      font-size: 16px;
+      font-weight: bold;
+      color: #fdfdfe;
+      line-height: 100px;
+      margin-left: 40px;
+    }
+    .top-right #nav>ul>li>a:hover{
+     /* color: #e82c07;*/
+      color: #FF8247;
+    }
+    .content{
+      /*内容*/
+      height: 1200px;
+      width: 100%;
+      /*background-color: green;*/
+    }
+    .content .content-in{
+      display: none;
+      position: relative;
+    }
+
+   .content .content-in:nth-child(1){
+     width: 1200px;
+     height: 800px;
+     margin: 0 auto;
+    /* background-color: red;*/
+     background-image: url("src/img/test.jpg");
+     position: relative;
+
+    }
+    .content .content-in:nth-child(2){
+      width: 1200px;
+      height: 800px;
+      margin: 0 auto;
+    /*  background-image: url("src/img/test_1.jpg");
+      background-size: 1200px 800px;*/
+       background-color: #FFE4B5;
+
+    }
+    .content .content-in:nth-child(3){
+      width: 1200px;
+      height: 800px;
+      margin: 0 auto;
+      background-color: #F5F5DC;
+
+    }
+    .content .content-in:nth-child(4){
+      width: 1200px;
+      height: 800px;
+      margin: 0 auto;
+      background-color: #FFFAFA;
+
+    }
+    .content .content-in:nth-child(5){
+      width: 1200px;
+      height: 800px;
+      margin: 0 auto;
+      background-color: whitesmoke;
+
+    }
+    .content .content-in:nth-child(1) .content_in_one{
+      display: none;
+    }
+     .content .content-in:nth-child(1) .content_in_one:nth-child(2){
+       width: 1000px;
+       height: 800px;
+       margin: 0 auto;
+    }
+    .content .content-in:nth-child(1) .content_in_one:nth-child(3){
+      width: 1000px;
+      height: 800px;
+      margin: 0 auto;
+
+    }
+    .content .content-in:nth-child(1) .content_in_one:nth-child(4){
+      width: 1000px;
+      height: 800px;
+      margin: 0 auto;
+
+
+    }
+    .content .content-in:nth-child(4) .add_course_message_grade {
+      display: none;
+    }
+    .content .content-in:nth-child(4) .add_course_message_grade:nth-child(2){
+      width: 1000px;
+      height: 800px;
+      margin: 0 auto;
+    }
+    .content .content-in:nth-child(4) .add_course_message_grade:nth-child(3){
+     background-color: black;
+      width: 1000px;
+      height: 800px;
+      margin: 0 auto;
+    }
+    .content .content-in:nth-child(4) .add_course_message_grade:nth-child(4){
+     background-color: white;
+      width: 1000px;
+      height: 800px;
+      margin: 0 auto;
+    }
+    .current{
+          /*  border-bottom: 1px solid orangered;
+            color: orangered;*/
+    }
+    .course_manager_left,.add_course_message_left{
+      height: 800px;
+      width: 200px;
+      float: left;
+    }
+    .course_manager_left>ul>li>a,.add_course_message_left>ul>li>a{
+      font-size: 16px;
+      font-weight: bold;
+      color: #fdfdfe;
+      line-height: 100px;
+      margin-left: 40px;
+    }
+    .course_manager_left>ul>li>a:hover,.add_course_message_left>ul>li>a:hover{
+      color: #e82c07;
+    }
+    .course_manager_top,.teacher_manager_top,.student_manager_top{
+      height: 100px;
+      width: 100%;
+      line-height: normal;
+      margin-left: 500px;
+      margin-top: 50px;
+      position: absolute;
+    }
+    .add_course_message_top{
+      height: 100px;
+      width: 100%;
+      line-height: normal;
+      position: absolute;
+      margin-top: 50px;
+      margin-left: 400px
+    }
+    .course_manager_content,.teacher_manager_content,.student_manager_content,.add_course_message_content{
+      width: auto;
+      height: 500px;
+      margin-top: 100px;
+      margin-left: 200px;
+      overflow: scroll;
+      scrollbar-face-color: #889B9F;
+      scrollbar-shadow-color: #3D5054;
+      scrollbar-highlight-color: #C3D6DA;
+      scrollbar-3dlight-color: #3D5054;
+      scrollbar-darkshadow-color: #85989C;
+      scrollbar-track-color: #95A6AA;
+      scrollbar-arrow-color: #FFD6DA;
+      position: absolute;
+    }
+    .course_manager_content>table{
+      border: 1px;
+    }
+  .course_manager_content>table>tr>th{
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+  }
+    #addcourse_div{
+      position: absolute;
+      float: left;
+
+      margin-top: 100px;
+      margin-left: 250px;
+      z-index: 80;
+      display: none;
+
+      height: 400px;
+      width: 600px;
+      background-color: #2b2b2b;
+    }
+    #addteacher_div{
+      position: absolute;
+      float: left;
+
+      margin-top: 100px;
+      margin-left: 250px;
+      z-index: 80;
+      display: none;
+
+      height: 400px;
+      width: 600px;
+      background-color: #2b2b2b;
+    }
+    #addstudent_div{
+      position: absolute;
+      float: left;
+
+      margin-top: 100px;
+      margin-left: 250px;
+      z-index: 80;
+      display: none;
+
+      height: 400px;
+      width: 600px;
+      background-color: #2b2b2b;
+    }
+    .change_div{
+      position: absolute;
+      float: left;
+
+      margin-top: 100px;
+      margin-left: 250px;
+      z-index: 80;
+      display: none;
+
+      height: 400px;
+      width: 600px;
+      background-color: #2b2b2b;
+    }
+
+    .news-update{
+      width: 95%;
+      height:auto;
+      margin-left: 20px;
+      margin-top: 40px;
+    }
+    .news-update label{
+      height: 20px;
+      width: 130px;
+      display: inline-block;
+      text-align: right;
+      vertical-align: middle;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+    .news-update .content{
+      margin-top: -180px;
+    }
+    #newstitle,#content_url,#imgurl,#newsfrom,#date{
+      height: 25px;
+      border:1px solid #ccc;
+      width: 70%;
+    }
+    #newscontent{
+      width: 70%;
+      height: 100px;
+    }
+    #news_submit{
+      float: right;
+      margin-right: 9px;
+      height: 40px;
+      width: 100px;
+      font-size: 22px;
+      font-weight: bold;
+      background: darkcyan;
+      border:none;
+      color: #fff;
+      cursor: pointer;
+    }
+    .news-update label b{
+      color:#F44336;
+      margin-right: 5px;
+    }
+
+    #manager_password_div{
+      display: none;
+      width: 180px;
+      height: 60px;
+      background-color: white;
+      margin: 0 auto;
+    }
+    #manager_password_div>label{
+      float: left;
+    }
+    #manager_password_div>input{
+      float: left;
+    }
+    #manager_password_div>button{
+      float: left;
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+
+<body>
+<div class="header">
+  <div class="top-left">
+    <h1><a></a></h1>
+  </div>
+  <div class="top-in">
+    <div class="top-right">
+      <div id="nav">
+        <ul>
+        <li class ="current"><a>课程管理 </a></li>
+        <li><a>教师管理</a></li>
+        <li><a>学生管理</a></li>
+        <li><a>录入课程信息</a></li>
+        <li><a>新闻管理</a></li>
+        <li><a>个人信息</a></li>
+        </ul>
+      </div>
+  </div>
+  </div>
+</div>
+<div id="content" class="content">
+  <!--  //1. 课程管理//-->
+  <div class="content-in" id="content-in" style="display: block">
+    <div id="addcourse_div" class="change_div">
+        <label>课程名称</label>
+       <input type="text"><br>
+       <label>学时</label>
+       <input type="text"><br>
+       <label>选课人数</label>
+       <input type="text"><br>
+       <label>学院</label>
+       <input type="text"><br>
+       <label>学分</label>
+       <input type="text"><br>
+       <label>教授语言类型</label>
+       <input type="text"><br>
+       <label>课程介绍</label>
+       <input type="text"><br>
+       <label>课程编号</label>
+       <input type="text"><br>
+       <label>课程类型</label>
+       <input type="text"><br>
+       <button class="sumbit">提交</button>
+    </div>
+    <div id="changecourse_div" class="change_div">
+      <label>课程名称</label>
+      <input type="text"><br>
+      <label>学时</label>
+      <input type="text"><br>
+      <label>选课人数</label>
+      <input type="text"><br>
+      <label>学院</label>
+      <input type="text"><br>
+      <label>学分</label>
+      <input type="text"><br>
+      <label>教授语言类型</label>
+      <input type="text"><br>
+      <label>课程介绍</label>
+      <input type="text"><br>
+      <label>课程编号</label>
+      <input type="text"><br>
+      <label>课程类型</label>
+      <input type="text"><br>
+      <button class="sumbit">确认修改</button>
+    </div>
+    <div class="course_manager_left" id="course_manager_left">
+      <ul>
+        <li><a>必修</a></li>
+        <li><a>选修</a></li>
+        <li><a>专选</a></li>
+      </ul>
+    </div>
+    <div class="content_in_one" style="display: block">
+      <div class="course_manager_top">
+        <label>
+          <select class="course_query_academy">
+            <option value="0">学院</option>
+          </select>
+        </label>
+   <!--       <label>
+          <select class="course_query_grade">
+            <option value="0">年级</option>
+          </select>
+        </label> 
+        <label>
+          <select class="course_query_class">
+            <option value="0">班级</option>
+             <option value="1">--</option>
+          </select>
+        </label>
+        <label>
+          <select class="course_query_term">
+            <option value="0">学期</option>
+          </select>
+        </label> -->
+        <button id="course_add">添加课程</a></button>
+        <button  id="course_query">查询</button>
+      </div>
+      <div class="course_manager_content">
+        <table id="courselist">
+          <tr class="course_manager_content_tr">
+            <th>课程名</th>
+            <th>学时</th>
+            <th>学院</th>
+            <th>学分</th>
+            <th>教授语言类型</th>
+            <th>详细信息</th>
+            <th>操作</th>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="content_in_one">
+      <div class="course_manager_top">
+        <label>
+          <select class="course_query_academy">
+            <option value="2015-2016-1">计算机学院</option>
+            <option value="2015-2016-2">2015-2016-2</option>
+            <option value="2016-2017-1">2016-2017-1</option>
+          </select>
+        </label>
+        <button id="course_add2"><a>添加课程</a></button>
+        <button  id="course_query2">查询</button>
+      </div>
+      <div class="course_manager_content">
+        <table id="courselist2">
+          <tr>
+            <th>课程名</th>
+            <th>学时</th>
+            <th>学院</th>
+            <th>学分</th>
+            <th>教授语言类型</th>
+            <th>详细信息</th>
+            <th>操作</th>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="content_in_one">
+      <div class="course_manager_top">
+        <label>
+          <select class="course_query_academy">
+            <option value="计算机与信息工程学院">计算机与信息工程学院</option>
+            <option value="商学院">商学院</option>
+            <option value="化学院">化学院</option>
+          </select>
+        </label>
+        <!-- <label>
+          <select class="course_query_grade">
+            <option value="大一">大一</option>
+            <option value="大二">大二</option>
+            <option value="大三">大三</option>
+          </select>
+        </label> -->
+  <!--       <label>
+          <select class="course_query_specialty">
+            <option value="软件工程">软件工程</option>
+            <option value="材料">计算机科学技术</option>
+          </select>
+        </label>
+        <label>
+          <select class="course_query_term">
+            <option value="2015-2016-1">2015-2016-1</option>
+            <option value="2015-2016-2">2015-2016-2</option>
+            <option value="2016-2017-1">2016-2017-1</option>
+          </select>
+        </label> -->
+        <button id="course_add1"><a>添加课程</a></button>
+        <button  id="course_query1">查询</button>
+      </div>
+      <div class="course_manager_content">
+        <table id="courselist1">
+          <tr>
+            <th>课程名</th>
+            <th>学时</th>
+            <th>学院</th>
+            <th>学分</th>
+            <th>教授语言类型</th>
+            <th>详细信息</th>
+            <th>操作</th>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!-- //2. 老师管理//-->
+  <div class="content-in" id="content-in-two">
+    <div id="addteacher_div" class="change_div">
+      <label>教师职工号</label>
+      <input type="text"><br>
+      <label>教师姓名</label>
+      <input type="text"><br>
+      <label>学院</label>
+      <input type="text"><br>
+      <label>职称</label>
+      <input type="text"><br>
+      <label>家庭住址</label>
+      <input type="text"><br>
+      <label>年龄</label>
+      <input type="text"><br>
+      <label>QQ号</label>
+      <input type="text"><br>
+      <label>手机号</label>
+      <input type="text"><br>
+      <label>籍贯</label>
+      <input type="text"><br>
+      <label>婚姻状况</label>
+      <input type="text"><br>
+      <label>教龄</label>
+      <input type="text"><br>
+      <label>证件号码</label>
+      <input type="text"><br>
+      <label>政治面貌</label>
+      <input type="text"><br>
+      <label>民族</label>
+      <input type="text"><br>
+      <label>性别</label>
+      <input type="text"><br>
+      <label>证件类型</label>
+      <input type="text"><br>
+      <label>登录密码</label>
+      <input type="text"><br>
+      <label>当前学期</label>
+      <input type="text"><br>
+      <button class="sumbit">提交</button>
+    </div>
+    <div id="changeteacher_div" class="change_div">
+      <label>教师职工号</label>
+      <input type="text"><br>
+      <label>教师姓名</label>
+      <input type="text"><br>
+      <label>学院</label>
+      <input type="text"><br>
+      <label>职称</label>
+      <input type="text"><br>
+      <label>家庭住址</label>
+      <input type="text"><br>
+      <label>年龄</label>
+      <input type="text"><br>
+      <label>QQ号</label>
+      <input type="text"><br>
+      <label>手机号</label>
+      <input type="text"><br>
+      <label>籍贯</label>
+      <input type="text"><br>
+      <label>婚姻状况</label>
+      <input type="text"><br>
+      <label>教龄</label>
+      <input type="text"><br>
+      <label>证件号码</label>
+      <input type="text"><br>
+      <label>政治面貌</label>
+      <input type="text"><br>
+      <label>民族</label>
+      <input type="text"><br>
+      <label>性别</label>
+      <input type="text"><br>
+      <label>证件类型</label>
+      <input type="text"><br>
+      <label>登录密码</label>
+      <input type="text"><br>
+      <button class="sumbit">提交</button>
+    </div>
+    <div class="teacher_manager_top">
+      <label>
+        <select class="teacher_query_academy">
+          <option value="计算机与信息工程学院">计算机与信息工程学院</option>
+          <option value="商学院">商学院</option>
+          <option value="化学院">化学院</option>
+        </select>
+      </label>
+      <label>
+        <select class="teacher_query_title_technical_post">
+          <option value="教授">教授</option>
+          <option value="副教授">副教授</option>
+          <option value="讲师">讲师</option>
+        </select>
+      </label>
+      <button id="teacher_add">添加老师信息</button>
+      <button  id="teacher_query">查询</button>
+    </div>
+    <div class="teacher_manager_content">
+      <table id="teacher_list">
+        <tr>
+          <th>职工号</th>
+          <th>名字</th>
+          <th>学院</th>
+          <th>职称</th>
+          <th>详细信息</th>
+          <th>操作</th>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <!-- //3.学生管理-->
+  <div class="content-in" id="content_in_three">
+    <div id="addstudent_div" class="change_div">
+      <label>学生姓名</label>
+      <input type="text"><br>
+      <label>学院</label>
+      <input type="text"><br>
+      <label>专业</label>
+      <input type="text"><br>
+      <label>年级</label>
+      <input type="text"><br>
+      <label>班级</label>
+      <input type="text"><br>
+      <label>年龄</label>
+      <input type="text"><br>
+      <label>政治面貌</label>
+      <input type="text"><br>
+      <label>家庭住址</label>
+      <input type="text"><br>
+      <label>手机号</label>
+      <input type="text"><br>
+      <label>证件号码</label>
+      <input type="text"><br>
+      <label>证件类型</label>
+      <input type="text"><br>
+      <label>登录密码</label>
+      <input type="text"><br>
+      <label>民族</label>
+      <input type="text"><br>
+      <label>籍贯</label>
+      <input type="text"><br>
+      <label>性别</label>
+      <input type="text"><br>
+      <label>QQ号</label>
+      <input type="text"><br>
+      <label>学号</label>
+      <input type="text"><br>
+      <button class="sumbit">提交</button>
+    </div>
+    <div id="changestudent_div" class="change_div">
+      <label>学生姓名</label>
+      <input type="text"><br>
+      <label>学院</label>
+      <input type="text"><br>
+      <label>专业</label>
+      <input type="text"><br>
+      <label>年级</label>
+      <input type="text"><br>
+      <label>班级</label>
+      <input type="text"><br>
+      <label>年龄</label>
+      <input type="text"><br>
+      <label>政治面貌</label>
+      <input type="text"><br>
+      <label>家庭住址</label>
+      <input type="text"><br>
+      <label>手机号</label>
+      <input type="text"><br>
+      <label>证件号码</label>
+      <input type="text"><br>
+      <label>证件类型</label>
+      <input type="text"><br>
+      <label>登录密码</label>
+      <input type="text"><br>
+      <label>民族</label>
+      <input type="text"><br>
+      <label>籍贯</label>
+      <input type="text"><br>
+      <label>性别</label>
+      <input type="text"><br>
+      <label>QQ号</label>
+      <input type="text"><br>
+      <label>学号</label>
+      <input type="text"><br>
+      <button class="sumbit">提交</button>
+    </div>
+    <div class="student_manager_top">
+      <label>
+        <select class="student_query_academy">
+          <option value="计算机与信息工程学院">计算机与信息工程学院</option>
+          <option value="商学院">商学院</option>
+          <option value="化学院">化学院</option>
+        </select>
+      </label>
+     <!--  <label>
+        <select class="student_query_grade">
+          <option value="2015级">2015级</option>
+          <option value="2016级">2016级</option>
+          <option value="2017级">2017级</option>
+        </select>
+      </label> -->
+      <label>
+        <select class="student_query_class">
+          <option value="1601班">1601班</option>
+          <option value="1701班">1701班</option>
+          <option value="1801班">1801班</option>
+        </select>
+      </label>
+      <button id="student_add">添加学生信息</a></button>
+      <button  id="student_query">查询</button>
+    </div>
+    <div class="student_manager_content">
+      <table id="student_list">
+        <tr>
+          <th>学号</th>
+          <th>名字</th>
+          <th>学院</th>
+          <th>专业</th>
+          <th>年级</th>
+          <th>班级</th>
+          <th>查看详情</th>
+          <th>操作</th>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <!-- //4.录入课程信息-->
+  <div class="content-in"  id="content_in_four">
+    <div class="add_course_message_left" id="add_course_message_left">
+      <ul>
+        <li><a>必修</a></li>
+        <li><a>选修</a></li>
+        <li><a>专选</a></li>
+      </ul>
+    </div>
+    <div class="add_course_message_grade"  style="display: block">
+      <div id="1message_addcourse_div" class="change_div">
+        <label>教师职工号</label>
+        <input type="text"><br>
+        <label>课程编号</label>
+        <input type="text"><br>
+        <label>班级</label>
+        <input type="text"><br>
+        <label>学期-学年</label>
+        <input type="text"><br>
+        <label>上课周次</label>
+        <input type="text"><br>
+        <label>上课时间</label>
+        <input type="text"><br>
+        <button class="sumbit">提交</button>
+      </div>
+      <div id="1message_changecourse_div" class="change_div">
+        <label>教师职工号</label>
+        <input type="text"><br>
+        <label>课程编号</label>
+        <input type="text"><br>
+        <label>班级</label>
+        <input type="text"><br>
+        <label>学期-学年</label>
+        <input type="text"><br>
+        <label>上课周次</label>
+        <input type="text"><br>
+        <label>上课时间</label>
+        <input type="text"><br>
+        <button class="sumbit">提交</button>
+      </div>
+      <div class="add_course_message_top">
+        <label>
+          <select class="add_course_message_academy" id="add_course_message_academy_r">
+            <option value="计算机与信息工程学院">计算机与信息工程学院</option>
+            <option value="商学院">商学院</option>
+            <option value="化学院">化学院</option>
+          </select>
+        </label>
+       <!--  <label>
+          <select class="add_course_message_specialty">
+            <option value="软件工程">软件工程</option>
+            <option value="材料">材料</option>
+            <option value="市场营销">市场营销</option>
+          </select>
+        </label> -->
+        <label>
+          <select class="add_course_message_term">
+            <option value="2015-2016-1">2015-2016-1</option>
+            <option value="2015-2016-2">2015-2016-2</option>
+            <option value="2016-2017-1">2016-2017-1</option>
+          </select>
+        </label>
+        <label>
+          <select class="add_course_message_class">
+            <option value="1501">1501</option>
+            <option value="1601">1601</option>
+            <option value="1701">1701</option>
+          </select>
+        </label>
+        <button id="add_course_message_class">添加课程</button>
+        <button  id="add_course_message_query">查询</button>
+      </div>
+      <div class="add_course_message_content" >
+        <table id="add_course_message_list1">
+          <tr>
+            <th>教师职工号</th>
+            <th>课程编号</th>
+            <th>班级</th>
+            <th>学期-学年</th>
+            <th>上课周次</th>
+            <th>上课时间</th>
+            <th>详细信息</th>
+            <th>操作</th>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="add_course_message_grade">
+      <div id="2message_addcourse_div" class="change_div">
+        <label>教师职工号</label>
+        <input type="text"><br>
+        <label>课程编号</label>
+        <input type="text"><br>
+        <label>学期-学年</label>
+        <input type="text"><br>
+        <label>上课周次</label>
+        <input type="text"><br>
+        <label>上课时间</label>
+        <input type="text"><br>
+        <button class="sumbit">提交</button>
+      </div>
+      <div id="2message_changecourse_div" class="change_div">
+        <label>教师职工号</label>
+        <input type="text"><br>
+        <label>课程编号</label>
+        <input type="text"><br>
+        <label>学期-学年</label>
+        <input type="text"><br>
+        <label>上课周次</label>
+        <input type="text"><br>
+        <label>上课时间</label>
+        <input type="text"><br>
+        <button class="sumbit">提交</button>
+      </div>
+      <div class="add_course_message_top">
+        <label>
+          <select class="add_course_message_term">
+            <option value="2015-2016-1">2015-2016-1</option>
+            <option value="2015-2016-2">2015-2016-2</option>
+            <option value="2016-2017-1">2016-2017-1</option>
+          </select>
+        </label>
+        <button id="add_course_message_class2">添加课程</button>
+        <button  id="add_course_message_query2">查询</button>
+      </div>
+      <div class="add_course_message_content">
+        <table id="add_course_message_list2">
+          <tr>
+            <th>教师职工号</th>
+            <th>课程编号</th>
+            <th>学期-学年</th>
+            <th>上课周次</th>
+            <th>上课时间</th>
+            <th>详细信息</th>
+            <th>操作</th>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="add_course_message_grade">
+      <div id="3message_addcourse_div" class="change_div">
+        <label>教师职工号</label>
+        <input type="text"><br>
+        <label>课程编号</label>
+        <input type="text"><br>
+        <label>学期-学年</label>
+        <input type="text"><br>
+        <label>上课周次</label>
+        <input type="text"><br>
+        <label>上课时间</label>
+        <input type="text"><br>
+        <label>年级</label>
+        <input type="text"><br>
+        <label>专业</label>
+        <input type="text"><br>
+        <button class="sumbit">提交</button>
+      </div>
+      <div id="3message_changecourse_div" class="change_div">
+        <label>教师职工号</label>
+        <input type="text"><br>
+        <label>课程编号</label>
+        <input type="text"><br>
+        <label>学期-学年</label>
+        <input type="text"><br>
+        <label>上课周次</label>
+        <input type="text"><br>
+        <label>上课时间</label>
+        <input type="text"><br>
+        <label>年级</label>
+        <input type="text"><br>
+        <label>专业</label>
+        <input type="text"><br>
+        <button class="sumbit">提交</button>
+      </div>
+      <div class="add_course_message_top">
+        <label>
+          <select class="add_course_message_academy" id="add_course_message_academy_e">
+            <option value="计算机与信息工程学院">计算机与信息工程学院</option>
+            <option value="商学院">商学院</option>
+            <option value="化学院">化学院</option>
+          </select>
+        </label>
+        <label>
+          <select class="add_course_message_grade_specialty">
+            <option value="软件工程">软件工程</option>
+            <option value="材料">材料</option>
+            <option value="市场营销">市场营销</option>
+          </select>
+        </label>
+        <label>
+          <select class="add_course_message_term">
+            <option value="2015-2016-1">2015-2016-1</option>
+            <option value="2015-2016-2">2015-2016-2</option>
+            <option value="2016-2017-1">2016-2017-1</option>
+          </select>
+        </label>
+    <!--     <label>
+          <select class="add_course_message_g">
+            <option value="2015级">2015级</option>
+            <option value="2016级">2016级</option>
+            <option value="2017级">2017级</option>
+          </select>
+        </label> -->
+        <button id="add_course_message_class3"><a>添加课程</a></button>
+        <button  id="add_course_message_query3">查询</button>
+      </div>
+      <div class="add_course_message_content">
+        <table id="add_course_message_list3">
+          <tr>
+            <th>教师职工号</th>
+            <th>课程编号</th>
+            <th>学期-学年</th>
+            <th>上课周次</th>
+            <th>上课时间</th>
+            <th>年级</th>
+            <th>专业</th>
+            <th>详细信息</th>
+            <th>操作</th>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!-- //5. 新闻管理-->
+  <div class="content-in" id="content_in_five">
+    <div class="news-update" >
+      <form>
+        <p>
+          <label for="newstitle"><b>*</b>标题:</label>
+          <input type="text" name="newstitle" id="newstitle">
+        </p>
+        <p>
+          <label for="content_url"><b>*</b>作者:</label>
+          <input type="url" name="content_url" id="content_url">
+        </p>
+        <!--<p>-->
+        <!--<label for="imgurl">图片地址:</label>-->
+        <!--<input type="file" name="imgurl" id="imgurl">-->
+        <!--</p>-->
+        <p>
+          <label for="date">日期:</label>
+          <input type="text" name="date" id="date">
+        </p>
+        <p>
+          <label for="newscontent" class="content"><b>*</b>内容:</label>
+          <textarea name="newscontent" id="newscontent"></textarea>
+        </p>
+        <input type="button" name="submit" id="news_submit" value="提交">
+      </form>
+      <p class="hidden"></p>
+    </div>
+  </div>
+  <!--//6.个人信息-->
+  <div class="content-in" id="content-in-six">
+    <div id="manager_password_div">
+      <label>密码</label><input type="text">
+      <button id="manager_password_div_submit">确定</button>
+      <button id="manager_password_div_s">取消</button>
+    </div>
+    <div id="kaiguan">
+      <button id="password_up">修改密码</button>
+      <button id="student_class">打开学生选课功能</button>
+      <button id="teacher_credit">打开老师选课功能</button>
+    </div>
+  </div>
+</div>
+<script>
+    window.onload = function () {
+/*time:2018.12.3
+* 新闻，系统开关，
+* */
+      //新闻
+      $('#news_submit').click(function () {
+        var inps=$(this).parent().find("input");
+        if(inps[0].value==""&&inps[1].value==""&&inps[2].value==""&&inps[3].value=="")
+        {
+            alert("请完善新闻");
+        }else{
+            $.ajax({
+                url:"",
+                data:{
+                    "title":inps[0].value,
+                    "author":inps[1].value,
+                    "release_time":inps[2].value,
+                    "content":inps[3].value
+                },
+                success:function (){
+                    inps[0].value="";
+                    inps[1].value="";
+                    inps[2].value="";
+                    inps[3].value="";
+                }
+            });
+        }
+        // var str=[
+        //   {
+        //     "title":inps[0].value,
+        //     "author":inps[1].value,
+        //     "release_time":inps[2].value,
+        //     "content":inps[3].value
+        //   }
+        // ];
+        // console.log(str);
+      });
+      // 系统开关 请求 开关的状态
+        $.ajax({
+            url:"",
+            success:function (str) {
+                var stu=str.data.student_class;
+                var tea=str.data.teac;
+                if(stu=="1")
+                {
+                    $(this).text("关闭学生选课功能");
+                }else{
+                    $(this).text("打开学生选课功能");
+                }
+                if(tea=="1")
+                {
+                    $(this).text("关闭老师选课功能");
+                }else{
+                    $(this).text("打开老师选课功能");
+                }
+            }
+        });
+        $('#student_class').click(function () {
+            $.ajax({
+                url:""
+            });
+            var tex=$(this).text();
+            if(tex=="打开学生选课功能")
+            {
+                $(this).text("关闭学生选课功能");
+            }else{
+                $(this).text("打开学生选课功能");
+            }
+        });
+        $('#teacher_credit').click(function () {
+            $.ajax({
+                url:""
+            });
+            var tex=$(this).text();
+            if(tex=="打开老师选课功能")
+            {
+                $(this).text("关闭老师选课功能");
+            }else{
+                $(this).text("打开老师选课功能");
+            }
+        });
+      //个人信息——修改密码
+        //修改密码按钮
+        $('#password_up').click(function () {
+            $('#manager_password_div')[0].style.display="block";
+            $('#manager_password_div').find("input")[0].value="";
+        });
+          //取消
+        $('#manager_password_div_s').click(function () {
+            $('#manager_password_div')[0].style.display="none";
+        });
+          //确定
+        $('#manager_password_div_submit').click(function () {
+            $.ajax({
+                url:"",
+                data:{
+                    "login_password":$('#manager_password_div').find("input")[0].value
+                }
+            });
+            // alert($('#manager_password_div').find("input")[0].value);
+            $('#manager_password_div')[0].style.display="none";
+        });
+////////////////
+    // var tab = document.getElementsByTagName("table")[0];
+    var course_item=["course_name","period","set_college","credit","teach_lan_type"];
+    var teacher_item=["staff_number","name","academy","title_technical_post"];
+    var student_item=["school_number","name","academy","specialty","grade","student_class"];
+    var r_course_item1=["staff_number","course_number","student_class","term_year","week_class_time","class_time"];
+    var r_course_item2=["staff_number","course_number","term_year","week_class_time","class_time"];
+    var r_course_item3=["staff_number","course_number","term_year","week_class_time","class_time","grade","specialty"];
+
+    <!--导航栏-->
+    content("nav","li","content","content-in");
+    <!--1.1层功能选项卡-->
+    content("course_manager_left","li","content-in","content_in_one");
+    <!--1.4功能选项卡-->
+    content("add_course_message_left","li","content_in_four","add_course_message_grade");
+
+
+    // 课程查询 删除
+      course_inquire($('#course_query'),course_item);
+      course_inquire($('#course_query2'),course_item);
+      course_inquire($('#course_query1'),course_item);
+    //老师查询
+      inquire($('#teacher_query'),teacher_item);
+    //学生查询
+      inquire($('#student_query'),student_item);
+    //录入查询
+        course_inquire($('#add_course_message_query'),r_course_item1);
+        course_inquire($('#add_course_message_query2'),r_course_item2);
+        course_inquire($('#add_course_message_query3'),r_course_item3);
+
+
+     //提交按钮
+      $('.sumbit').click(function () {
+          //判断 添加 还是修改
+          var div_id=$(this).parents('.change_div').attr("id");
+          //inp
+          var inps=$(this).parent().find("input");
+          if(div_id=="addcourse_div"){
+        	  console.log("course_introduction"+inps[8].value);
+            /*   "course_number":inps[6].value,
+              "course_category":inps[7].value,
+              "course_introduction":inps[8].value, */
+               $.ajax({
+                url:"administrator/insertCourse",
+                data:{
+              "course_name":inps[0].value,
+              "period":inps[1].value,
+              "elective_number":inps[2].value,
+              "set_college":inps[3].value,
+              "credit":inps[4].value,
+              "teach_lan_type":inps[5].value,
+              "course_number":inps[7].value,
+              "course_category":inps[8].value,
+              "course_introduction":inps[6].value,
+              "is_exit":0,
+              "course_pic":""
+                }
+            }) 
+          }else if (div_id=="changecourse_div"){
+        	 /*  console.log(inps[0].value);
+        	  console.log(inps[1].value);
+        	  console.log(inps[2].value);
+        	  console.log(inps[3].value);
+        	  console.log(inps[4].value);
+        	  console.log(inps[5].value);
+        	  console.log(inps[6].value);
+        	  console.log(inps[7].value);
+        	  console.log(inps[8].value); */
+               $.ajax({
+                  url:"administrator/updateCourse",
+                  data:{
+                      "course_name":inps[0].value,
+                      "period":inps[1].value,
+                      "elective_number":inps[2].value,
+                      "set_college":inps[3].value,
+                      "credit":inps[4].value,
+                      "teach_lan_type":inps[5].value,
+                      "course_introduction":inps[6].value,
+                      "course_number":inps[7].value,
+                      "course_category":inps[8].value,                                      
+                      "course_pic":""
+                  }
+              }) 
+          } else if (div_id=="addteacher_div"){       	 
+        	          	 
+        	  var qqs=parseInt(inps[6].value);
+        	  var ages=parseInt(inps[5].value);
+        	  var cpns=parseInt(inps[7].value);
+        	  var yts=parseInt(inps[10].value);
+        	  /* var cers=parseInt(inps[11].value); */
+        	 /*  var pass=parseInt(inps[16].value); */
+        	  alert("addtea");
+               $.ajax({
+                  url:"administrator/insertTeacherInformation",
+                  data:{
+                      "staff_number":inps[0].value,
+                       "name":inps[1].value,
+                      "academy":inps[2].value,
+                      "title_technical_post":inps[3].value,
+                      "address":inps[4].value,
+                      "age":inps[5].value,
+                      "qq":inps[6].value,
+                      "cell_phone_number":inps[7].value,
+                      "native_place":inps[8].value,
+                      "marital_status":inps[9].value,
+                      "year_teach":inps[10].value,
+                      "certificate":inps[11].value,
+                      "political_status":inps[12].value,
+                      "nation":inps[13].value,
+                      "sex":inps[14].value,
+                      "certificate_type":inps[15].value,
+                      "login_password":inps[16].value,
+                      "current_term":inps[17].value,
+                      "is_exit":0,
+                  }
+              }) 
+          }else if (div_id=="changeteacher_div"){
+              $.ajax({
+                  url:"administrator/updateTeacherInformation",
+                  data:{
+                      "staff_number":inps[0].value,
+                      "name":inps[1].value,
+                      "academy":inps[2].value,
+                      "title_technical_post":inps[3].value,
+                      "address":inps[4].value,
+                      "age":inps[5].value,
+                      "qq":inps[6].value,
+                      "cell_phone_number":inps[7].value,
+                      "native_place":inps[8].value,
+                      "marital_status":inps[9].value,
+                      "year_teach":inps[10].value,
+                      "certificate":inps[11].value,
+                      "political_status":inps[12].value,
+                      "nation":inps[13].value,
+                      "sex":inps[14].value,
+                      "certificate_type":inps[15].value,
+                      "login_password":inps[16].value
+                  }
+              })
+          }else if (div_id=="addstudent_div"){         
+              $.ajax({
+                  url:"administrator/insertStudentInformation",
+                  data:{
+                      "name":inps[0].value,
+                      "academy":inps[1].value,
+                      "specialty":inps[2].value,
+                      "grade":inps[3].value,
+                      "student_class":inps[4].value,
+                      "age":inps[5].value,
+                      "political_status":inps[6].value,
+                      "address":inps[7].value,
+                      "cell_phone_number":inps[8].value,
+                      "certificate":inps[9].value,
+                      "id_type":inps[10].value,
+                      "login_password":inps[11].value,
+                      "nation":inps[12].value,
+                      "native_place":inps[13].value,
+                      "sex":inps[14].value,
+                      "qq":inps[15].value,
+                       "school_number":inps[16].value 
+                  }
+              })
+          }else if (div_id=="changestudent_div"){
+              $.ajax({
+                  url:"administrator/updateStudentInformation",
+                  data:{
+                      "name":inps[0].value,
+                      "academy":inps[1].value,
+                      "specialty":inps[2].value,
+                      "grade":inps[3].value,
+                      "student_class":inps[4].value,
+                      "age":inps[5].value,
+                      "political_status":inps[6].value,
+                      "address":inps[7].value,
+                      "cell_phone_number":inps[8].value,
+                      "certificate":inps[9].value,
+                      "id_type":inps[10].value,
+                      "login_password":inps[11].value,
+                      "nation":inps[12].value,
+                      "native_place":inps[13].value,
+                      "sex":inps[14].value,
+                      "qq":inps[15].value,
+                      "school_number":inps[16].value 
+                  }
+              })
+          }else if (div_id=="1message_addcourse_div"){
+              $.ajax({
+                  url:"administrator/insertRequiredCourse",
+                  data:{
+                      "staff_number":inps[0].value,
+                      "course_number":inps[1].value,
+                      "student_class":inps[2].value,
+                      "term_year":inps[3].value,
+                      "week_class_time":inps[4].value,
+                      "class_time":inps[5].value
+                  }
+              })
+          }else if (div_id=="1message_changecourse_div"){
+              $.ajax({
+                  url:"administrator/updateRequiredCourse",
+                  data:{
+                      "staff_number":inps[0].value,
+                      "course_number":inps[1].value,
+                      "student_class":inps[2].value,
+                      "term_year":inps[3].value,
+                      "week_class_time":inps[4].value,
+                      "class_time":inps[5].value
+                  }
+              })
+          }else if (div_id=="2message_addcourse_div"){
+              $.ajax({
+                  url:"administrator/insertPublicElectiveCourse",
+                  data:{
+                      "staff_number":inps[0].value,
+                      "course_number":inps[1].value,
+                      "term_year":inps[2].value,
+                      "week_class_time":inps[3].value,
+                      "class_time":inps[4].value
+                  }
+              })
+          }else if (div_id=="2message_changecourse_div"){
+              $.ajax({
+                  url:"administrator/updatePublicElectiveCourse",
+                  data:{
+                      "staff_number":inps[0].value,
+                      "course_number":inps[1].value,
+                      "term_year":inps[2].value,
+                      "week_class_time":inps[3].value,
+                      "class_time":inps[4].value
+                  }
+              })
+          }else if (div_id=="3message_addcourse_div"){
+              $.ajax({
+                  url:"administrator/insertElectiveCourse",
+                  data:{
+                      "staff_number":inps[0].value,
+                      "course_number":inps[1].value,
+                      "term_year":inps[2].value,
+                      "week_class_time":inps[3].value,
+                      "class_time":inps[4].value,
+                      "grade":inps[5].value,
+                      "specialty":inps[6].value
+                  }
+              })
+          }else if (div_id=="3message_changecourse_div"){
+              $.ajax({
+                  url:"administrator/updateElectiveCourse",
+                  data:{
+                      "staff_number":inps[0].value,
+                      "course_number":inps[1].value,
+                      "term_year":inps[2].value,
+                      "week_class_time":inps[3].value,
+                      "class_time":inps[4].value,
+                      "grade":inps[5].value,
+                      "specialty":inps[6].value
+                  }
+              })
+          }
+
+        // alert($(this).parents('.change_div').attr("id"));
+        // var s_inp=$(this).parent().find("input");
+        // for(var i=0;i<s_inp.length;i++)
+        // {
+        //   alert(s_inp[i].value);
+        // }
+
+        $(this).parent()[0].style.display="none";
+      });
+
+
+    //添加按钮 (必 选 专)
+      addcourse($('#course_add'));
+      addcourse($('#course_add2'));
+      addcourse($('#course_add1'));
+      //老师添加按钮
+      add($('#teacher_add'));
+      //学生添加按钮
+      add($('#student_add'));
+
+      add($('#add_course_message_class'));
+      add($('#add_course_message_class2'));
+      add($('#add_course_message_class3'));
+
+
+      //请求 学院 学期 年级 职称
+        var str_academy;
+        var str_term_year;
+        var str_grade;
+        var str_title_technical_post;
+        var str_student_class;
+        var str_specialty;
+        // $.ajax({
+        //    url:"administrator/allElective",
+        //    async:false,
+        //    success:function (str) {
+        //        str_academy=str.data.academy;
+        //        str_term_year=str.data.terms;
+        //        str_grade=str.data.grades;
+        //        str_title_technical_post=str.data.titleTechnicalPosts;
+        //        /* console.log("学院"+str_academy); */
+        //       /*  console.log("学院"+str_academy); */
+        //    }
+        // });
+        //请求（学院 年级）班级 ,（学院）专业
+
+
+//下拉框
+        //课程管理
+         list($('.course_query_academy'),str_academy);
+     /*     list($('.course_query_grade'),str_grade); */
+        listl($('.course_query_term'),str_academy);  //课程管理 选修查询 的学院
+
+        /* selected_list($('.course_query_class')); */
+         /*    list($('.course_query_class'),str_student_class);
+ */
+         selected_list($('.course_query_specialty'));
+ /*     list($('.course_query_specialty'),str_specialty); */
+        //老师管理
+         list($('.teacher_query_title_technical_post'),str_title_technical_post);
+        list($('.teacher_query_academy'),str_academy); 
+        //学生管理
+         list($('.student_query_academy'),str_academy);
+        list($('.student_query_grade'),str_grade);
+ 
+         selected_list($('.student_query_academy'));
+         /* list($('.student_query_class'),str_student_class); */
+        //录入课程管理
+         list($('.add_course_message_academy'),str_academy);
+        listl($('.add_course_message_term'),str_term_year);
+        list($('.add_course_message_g'),str_grade);
+
+       /* selected_list($('.add_course_message_specialty'));
+        list($('.add_course_message_specialty'),str_specialty); */
+
+         /* selected_list($('.add_course_message_academy')); */
+         selected_list($('#add_course_message_academy_r'));
+         selected_list($('#add_course_message_academy_e'));
+        /* list($('.add_course_message_class'),str_student_class); */
+
+
+    //下拉框选定
+   function selected_list(sele) {
+            var acm;
+            var grade;
+           /*  console.log(sele.parent().parent().children().eq(0).children().eq(0)); */
+            var $acma=$(sele.parent().parent().children().eq(0).children().eq(0));
+            sele.change(function () {
+            	alert("触发");
+                var classname=sele.attr("class");
+                var idname=sele.attr("id");
+                /* console.log("classname"+classname); */
+                /* if (classname=="course_query_class"||classname=="student_query_class"||classname=="add_course_message_class")
+                { */
+                if (classname=="student_query_academy"||idname=="add_course_message_academy_r")
+                {	
+                	  alert("触发2");
+                    /* acm=sele.parent().parent().children().eq(0).children().eq(0).children('option:selected').text(); */
+                    	if(classname=="student_query_academy")
+                    	{
+                    	class_list=sele.parent().parent().find(".student_query_class");
+                    	acm=sele.find('option:selected').text();
+                    	}else if(idname=="add_course_message_academy_r")
+                    	{
+                    	 class_list=sele.parent().parent().find(".add_course_message_class");
+                    	 acm=sele.find('option:selected').text(); 
+                    	}else if(idname=="add_course_message_academy_e")
+                    	{
+                    		class_list=sele.parent().parent().find(".add_course_message_grade_specialty");
+                    		acm=sele.find('option:selected').text();
+                    	}
+                     /* acm=sele.find('option:selected').text(); */
+                     /*  console.log("sele"+sele.find('option:selected').text()); 
+                     console.log("acm"+acm); */
+                    $.ajax({
+                        url:"administrator/selectAllClass", 
+                        async:false,
+                        data:{
+                            "academy":acm,
+                           /*  "grade":grade */
+                        },
+                        success:function (str) {
+                        	console.log(str);
+                        	/* console.log("str"+str); 
+                        	 console.log("str"+str.data[0]);  */
+                            str_student_class=str.data;
+                        }
+                    });                   
+                     /* console.log("class_list"+class_list);  */
+                     listl($(class_list),str_student_class); 
+                }else if(idname=="add_course_message_academy_e")
+                {
+                	/* alert("dain"); */
+                    /* acm=sele.parent().parent().children().eq(0).children().eq(0).children('option:selected').val(); */
+                    /*  alert(acm);  */
+                    class_list=sele.parent().parent().find(".add_course_message_grade_specialty");
+                    acm=sele.find('option:selected').val();
+                    /* console.log(acm); */
+                    $.ajax({
+                        url:"administrator/selectAllSpecialtyByAcademy",
+                        async:false,
+                        data:{
+                            "belong_school_code":acm,
+                        },
+                        success:function (str) {
+                         	console.log(str);
+                         	/*	console.log("zye"+str.data[2]); */
+                            str_specialty=str.data;
+                        }
+                    });
+                    listl(class_list,str_specialty);
+                }
+            })
+        }
+   //下拉框 学期
+  function list(lab,str) {	
+	 /*  console.log("str"+str); */
+	  lab.find("option").remove();
+	  /* console.log("str_specialty"+str); */
+      for (var i in str)
+      {   	  
+	      var op=$('<option></option>');
+    	  for(var k in str[i])
+    		{
+    		  	/* console.log("k"+k+str[i][k]); */
+ 
+    		  	if(k=="academy_code"||k=="grade_code"||k=="specialty_code"||k=="title_technical_post_code")
+    		  	{
+    	          op.val(str[i][k]);
+    		  	}else{
+      	          op.text(str[i][k]);
+    		  	}    	      
+    		}
+    	    lab.append(op);
+ 
+      }
+  }
+   
+  function listl(lab,str) {
+	   lab.find("option").remove(); 
+	   /* console.log("listl"); */
+    for (var i in str)
+    {   	     	
+  	         var op=$('<option></option>');
+  	          op.text(str[i]);
+  	          lab.append(op); 	
+    }
+}
+  //添加课程
+  function addcourse(id) {
+    id.click(function () {
+      $(this).parent().parent().parent().children().eq(0)[0].style.display="block";
+    });
+  }
+  //其他添加 录入
+   function add(id) {
+        id.click(function () {
+          $(this).parent().parent().children().eq(0)[0].style.display="block";
+        });
+      }
+  //课程查询按钮  删除事件
+  function course_inquire($id,item) {
+      //确定课程类型
+      var course_type;
+      //填数据 表格
+      var tab=$id.parent().parent().find("table")[0];
+
+      $id.click ( function(){
+          var labs=$(this).parent().find("label").find("select");
+          if($id[0].id=="course_query")
+          {
+              course_type="必修";
+              $.ajax({
+                  url:"administrator/selectRequiredCourse",
+                  data:{
+                     /*  "course_type":course_type, */
+                       "set_college":$(labs[0]).children('option:selected').text(),
+                       /* "grade":$(labs[1]).children('option:selected').text(), 
+                      "student_class":$(labs[2]).children('option:selected').text(),
+                      "term_year":$(labs[3]).children('option:selected').text()*/
+                  },
+                  success:function (str) {
+                	  console.log(str);
+                      data(tab,str.data,item);
+                  }
+              });
+          }else if($id[0].id=="course_query2")
+          {
+              course_type="选修";
+              $.ajax({
+                  url:"administrator/selectPublicElectiveCourse",
+                  data:{
+                      /* "course_type":course_type, */
+                      "set_college":$(labs[0]).children('option:selected').text()
+                  },
+                  success:function (str) {
+                	  console.log(str.data);
+                      data(tab,str.data,item);
+                  }
+              });
+          }else if ($id[0].id=="course_query1")
+          {
+              course_type="专选";
+              $.ajax({
+                  url:"administrator/selectElectiveCourse",
+                  data:{
+                     /*  "course_type":course_type,*/
+                      "set_college":$(labs[0]).children('option:selected').text(), 
+                     /*  "grade":$(labs[1]).children('option:selected').text(), 
+                      "specialty":$(labs[2]).children('option:selected').text(),
+                      "term_year":$(labs[3]).children('option:selected').text()*/
+                  },
+                  success:function (str) {
+                	  console.log(str);
+                      data(tab,str.data,item);
+                  }
+              });
+          }else if($id[0].id=="add_course_message_query")
+          {
+              course_type="必修";
+              $.ajax({
+                  url:"administrator/selectRequiredCourseAndOther",
+                  data:{
+                     /*  "course_type":course_type,
+                      "academy":$(labs[0]).children('option:selected').text(),
+                      "specialty":$(labs[1]).children('option:selected').text(), */
+                      "term_year":$(labs[1]).children('option:selected').text(),
+                      "student_class":$(labs[2]).children('option:selected').text()
+                  },
+                  success:function (str) {
+                	  console.log(str);
+                      data(tab,str.data,item);
+                  }
+              });
+          }else if($id[0].id=="add_course_message_query2")
+          {
+              course_type="选修";
+              $.ajax({
+                  url:"administrator/selectPublicCourseAndOther",
+                  data:{
+                     /*  "course_type":course_type, */
+                      "term_year":$(labs[0]).children('option:selected').text()
+                  },
+                  success:function (str) {
+                	  console.log(str);
+                      data(tab,str.data,item);
+                  }
+              });
+          }else if ($id[0].id=="add_course_message_query3")
+          {
+              course_type="专选";
+              $.ajax({
+                  url:"administrator/selectElectiveCourseAndOther",
+                  data:{
+                     /*  "course_type":course_type,
+                      "academy":$(labs[0]).children('option:selected').text(), */
+                      "specialty":$(labs[1]).children('option:selected').text(),
+                      "term_year":$(labs[2]).children('option:selected').text()
+                     /*  "grade":$(labs[3]).children('option:selected').text() */
+                  },
+                  success:function (str) {
+                	  console.log(str);
+                      data(tab,str.data,item);
+                  }
+              });
+          }
+
+      });
+  }
+  //其他查询按钮
+  function inquire($id,item) {
+      $id.click ( function(){
+          var labs=$(this).parent().find("label").find("select");
+          //填数据
+          var tab=$id.parent().parent().find("table")[0];
+
+          var type;
+          
+          if($id[0].id=="teacher_query")
+          {
+        	  alert("老师");
+              type="老师";
+              $.ajax({
+                  url:"administrator/selectTeacher",
+                  data:{
+                      /* "type":type, */
+                      "academy":$(labs[0]).children('option:selected').text(),
+                      "title_technical_post":$(labs[1]).children('option:selected').text()
+                  },
+                  success:function (str) {
+                	  console.log("teacher"+str);
+                      data(tab,str.data,item);
+                  }
+              });
+          }else if($id[0].id=="student_query")
+          {
+              type="学生";
+              $.ajax({
+                  url:"administrator/selectAllStudentInformation",
+                  data:{
+                      /* "type":type, */
+                    /*   "academy":$(labs[0]).children('option:selected').text(),
+                      "grade":$(labs[1]).children('option:selected').text(), */
+                      "student_class":$(labs[2]).children('option:selected').text()
+                  },
+                  success:function (str) {
+                      data(tab,str.data,item);
+                  }
+              });
+          }
+          // data(tab,str,item);
+      });
+  }
+  //选项卡
+  function content(list,tag1,dom,tag2) {
+    //获取需要的标签
+    var alllists=document.getElementById(list).getElementsByTagName(tag1);
+    var doms=document.getElementById(dom).getElementsByClassName(tag2);
+
+   var  lastone=0;
+    //2.遍历监听
+    for(var i=0;i<alllists.length;i++){
+      var li =alllists[i];
+      ( function (i) {
+        li.onmousedown=function () {
+          //1.清除样式
+          alllists[lastone].className="";
+          doms[lastone].style.display="none";
+          //2.设置选中
+          this.className="current";
+          doms[i].style.display="block";
+          //3.赋值
+          lastone=i;
+        }
+      })(i);
+    }
+  }
+  //填入tr的数据
+  function tdp(tr,text) {
+    var td1 =document.createElement("td");
+    var tp1=document.createElement("p");
+    tp1.innerHTML=text;
+    td1.appendChild(tp1);
+    tr.appendChild(td1);
+  }
+  //绘制表格(详情,删除 修改) 修改事件
+  function data(tab,str,item) {
+    //清除原td
+    var tablli=tab.getElementsByTagName("tr");
+    if(tablli.length>0)
+    {
+      var len=tablli.length;
+      for(var j=1;j<len;j++)
+      {
+        tab.removeChild(tablli[1]);
+      }
+    }
+
+    //生产新td
+    for (var key in str) {
+      var tr = document.createElement("tr");
+      var $tr=$(tr);
+      tr.className = "course_manager_content_tr";
+       //存储信息
+        for (var o in str[0])
+        {
+            $tr.attr(o,str[key][o]);
+        }
+
+        for (var k in item)
+      {
+        tdp(tr,str[key][item[k]]);
+      }
+      <!--详细信息-->
+      var thdoc = document.createElement("td");
+
+      var xa = document.createElement("a");
+      xa.href = "#";
+      xa.text = "详细信息";
+      xa.className = "inform";
+
+      thdoc.appendChild(xa);
+
+      tr.appendChild(thdoc);
+      <!--操作-->
+      var thc = document.createElement("td");
+
+      <!--修改-->
+      var xia = document.createElement("a");
+      // xia.href = "changecourse.html?id=" + tr.id;
+      xia.text = "修改";
+      xia.className = "change";
+      thc.appendChild(xia);
+        <!--删除-->
+        var sa = document.createElement("a");
+        sa.href = "javascript:";
+        sa.text = "删除";
+        sa.className = "delete";
+
+        thc.appendChild(sa);
+      tr.appendChild(thc);
+      <!--zzz-->
+      tab.appendChild(tr);
+    }
+
+      //修改按钮
+      $('.change').click(function () {
+          alert("修改");
+          var type=$(this).parents('table').attr("id");
+
+          //td
+          var $td=$(this).parent().parent();
+          // alert("班级"+$td.attr("student_class"));
+          console.log($td);
+          //change_div
+          // var cdiv=$(this).parents('.content-in').children().eq(1);
+          var cdiv;
+          console.log(type);
+          if(type=="add_course_message_list1"||type=="add_course_message_list2"||type=="add_course_message_list3"){
+              cdiv=$(this).parents('table').parent().parent().children().eq(1);
+          }else{
+             cdiv=$(this).parents('.content-in').children().eq(1);
+          }
+          cdiv[0].style.display="block";
+
+          var div_inps=cdiv.find("input");
+
+          change_val(div_inps,$td,type);
+      });
+      //删除按钮
+      $('.delete').click(function () {
+          var table=$(this).parents('tr');
+          var type=$(this).parents('table').attr("id");
+          var sort;
+          if (type=="courselist"||type=="courselist1"||type=="courselist2")
+          {
+              // alert(table.attr("course_id"));
+              sort="课程";
+              $.ajax({
+                  url:"administrator/deleteCourse",
+                  data:{
+                      "course_number":table.attr("course_number"),
+                     /*  "sort":sort */
+                  }
+              })
+          }else if (type=="teacher_list") {
+              // alert(table.attr("teacher_id"));
+              sort="老师";
+              $.ajax({
+                  url:"administrator/deleteTeacherInformation",
+                  data:{
+                      "staff_number":table.attr("staff_number"),
+                      /* "sort":sort */
+                  }
+              })
+          }else if (type=="student_list"){
+              // alert(table.attr("student_id"));
+              sort="学生";
+              $.ajax({
+                  url:"administrator/deleteStudentInformation",
+                  data:{
+                      "school_number":table.attr("school_number"),
+                      /* "sort":sort */
+                  }
+              })
+          }else if(type=="add_course_message_list1"){
+              // alert(table.attr("staff_number"));
+              // alert(table.attr("course_number"));
+              // alert(table.attr("student_class"));
+              sort="必修";
+              $.ajax({
+                  url:"administrator/deleteRequiredCourse",
+                  data:{
+                      "staff_number":table.attr("staff_number"),
+                      "course_number":table.attr("course_number"),
+                      "student_class":table.attr("student_class")
+                     /*  "sort":sort */
+                  }
+              })
+          }else if(type=="add_course_message_list2"){
+              // alert(table.attr("staff_number"));
+              // alert(table.attr("course_number"));
+              // alert(table.attr("grade"));
+              // alert(table.attr("specialty"));
+              sort="选修";
+              $.ajax({
+                  url:"administrator/deletePublicElectiveCourse",
+                  data:{
+                      "staff_number":table.attr("staff_number"),
+                      "course_number":table.attr("course_number"),
+                      "term_year":table.attr("term_year")
+                     /*  "sort":sort */
+                  }
+              })
+          }else if(type=="add_course_message_list3"){
+              // alert(table.attr("staff_number"));
+              // alert(table.attr("course_number"));
+              // alert(table.attr("term_year"));
+              sort="专选";
+              $.ajax({
+                  url:"administrator/deleteElectiveCourse",
+                  data:{
+                      "staff_number":table.attr("staff_number"),
+                      "course_number":table.attr("course_number"),                    
+                      "grade":table.attr("grade"),
+                      "specialty":table.attr("specialty")
+                      /* "sort":sort */
+                  }
+              })
+          }
+          table.remove();
+      });
+  }
+  //填修改框的值
+  function change_val(div_inps,$td,type) {
+          if (type=="courselist"||type=="courselist1"||type=="courselist2")
+          {
+              div_inps[0].value=$td.attr("course_name");
+              div_inps[1].value=$td.attr("period");
+              div_inps[2].value=$td.attr("elective_number");
+              div_inps[3].value=$td.attr("set_college");
+              div_inps[4].value=$td.attr("credit");
+              div_inps[5].value=$td.attr("teach_lan_type");
+              div_inps[6].value=$td.attr("course_introduction");
+              div_inps[7].value=$td.attr("course_number");
+              div_inps[8].value=$td.attr("course_category");     
+          }else if (type=="teacher_list")
+          {
+          //        <label>教师职工号</label>
+          //         <label>教师姓名</label>
+          //         <input type="text"><br>
+          //         <label>学院</label>
+          //         <input type="text"><br>
+          //         <label>职称</label>
+          //         <input type="text"><br>
+          //         <label>家庭住址</label>
+          //         <input type="text"><br>
+          //         <label>年龄</label>
+          //         <input type="text"><br>
+          //         <label>QQ号</label>
+          //         <input type="text"><br>
+          //         <label>手机号</label>
+          //         <input type="text"><br>
+          //         <label>籍贯</label>
+          //         <input type="text"><br>
+          //         <label>婚姻状况</label>
+          //         <input type="text"><br>
+          //         <label>教龄</label>
+          //         <input type="text"><br>
+          //         <label>证件号码</label>
+          //         <input type="text"><br>
+          //         <label>政治面貌</label>
+          //         <input type="text"><br>
+          //         <label>民族</label>
+          //         <input type="text"><br>
+          //         <label>性别</label>
+          //         <input type="text"><br>
+          //         <label>证件类型</label>
+          //         <input type="text"><br>
+          //         <label>登录密码</label>
+          //         <input type="text"><br>
+              div_inps[0].value=$td.attr("staff_number");
+              div_inps[1].value=$td.attr("name");
+              div_inps[2].value=$td.attr("academy");
+              div_inps[3].value=$td.attr("title_technical_post");
+              div_inps[4].value=$td.attr("address");
+              div_inps[5].value=$td.attr("age");
+              div_inps[6].value=$td.attr("qq");
+              div_inps[7].value=$td.attr("cell_phone_number");
+              div_inps[8].value=$td.attr("native_place");
+              div_inps[9].value=$td.attr("marital_status");
+              div_inps[10].value=$td.attr("year_teach");
+              div_inps[11].value=$td.attr("certificate");
+              div_inps[12].value=$td.attr("political_status");
+              div_inps[13].value=$td.attr("nation");
+              div_inps[14].value=$td.attr("sex");
+              div_inps[15].value=$td.attr("certificate_type");
+              div_inps[16].value=$td.attr("login_password");
+          }else if (type=="student_list")
+          {
+          // <label>学生姓名</label>
+          // <input type="text"><br>
+          //     <label>学院</label>
+          //     <input type="text"><br>
+          //     <label>专业</label>
+          //     <input type="text"><br>
+          //     <label>年级</label>
+          //     <input type="text"><br>
+          //     <label>班级</label>
+          //     <input type="text"><br>
+          //     <label>年龄</label>
+          //     <input type="text"><br>
+          //     <label>政治面貌</label>
+          //     <input type="text"><br>
+          //     <label>家庭住址</label>
+          //     <input type="text"><br>
+          //     <label>手机号</label>
+          //     <input type="text"><br>
+          //     <label>证件号码</label>
+          //     <input type="text"><br>
+          //     <label>证件类型</label>
+          //     <input type="text"><br>
+          //     <label>登录密码</label>
+          //     <input type="text"><br>
+          //     <label>民族</label>
+          //     <input type="text"><br>
+          //     <label>籍贯</label>
+          //     <input type="text"><br>
+          //     <label>性别</label>
+          //     <input type="text"><br>
+          //     <label>QQ号</label>
+          //     <input type="text"><br>gradestudent_classterm_year
+          //     alert("班级");
+              div_inps[0].value=$td.attr("name");
+              div_inps[1].value=$td.attr("academy");
+              div_inps[2].value=$td.attr("specialty");
+              div_inps[3].value=$td.attr("grade");
+              div_inps[4].value=$td.attr("student_class");
+              div_inps[5].value=$td.attr("age");
+              div_inps[6].value=$td.attr("political_status");
+              div_inps[7].value=$td.attr("address");
+              div_inps[8].value=$td.attr("cell_phone_number");
+              div_inps[9].value=$td.attr("certificate");
+              div_inps[10].value=$td.attr("id_type");
+              div_inps[11].value=$td.attr("login_password");
+              div_inps[12].value=$td.attr("nation");
+              div_inps[13].value=$td.attr("native_place");
+              div_inps[14].value=$td.attr("sex");
+              div_inps[15].value=$td.attr("qq");
+              div_inps[16].value=$td.attr("school_number");
+          }else if(type=="add_course_message_list1")
+          {
+          // <label>教师职工号</label>
+          // <input type="text">
+          //     <label>课程编号</label>
+          //     <input type="text">
+          //     <label>班级</label>
+          //     <input type="text">
+          //     <label>学期-学年</label>
+          //     <input type="text">
+          //     <label>上课周次</label>
+          //     <input type="text">
+          //     <label>上课时间</label>
+          //     <input type="text">
+          //     alert("班级"+$td.attr("student_class"));
+              div_inps[0].value=$td.attr("staff_number");
+              div_inps[1].value=$td.attr("course_number");
+              div_inps[2].value=$td.attr("student_class");
+              div_inps[3].value=$td.attr("term_year");
+              div_inps[4].value=$td.attr("week_class_time");
+              div_inps[5].value=$td.attr("class_time");
+          }else if(type=="add_course_message_list2")
+          {
+          // <label>教师职工号</label>
+          // <input type="text">
+          //     <label>课程编号</label>
+          //     <input type="text">
+          //     <label>学期-学年</label>
+          //     <input type="text">
+          //     <label>上课周次</label>
+          //     <input type="text">
+          //     <label>上课时间</label>
+          //     <input type="text">
+              div_inps[0].value=$td.attr("staff_number");
+              div_inps[1].value=$td.attr("course_number");
+              div_inps[2].value=$td.attr("term_year");
+              div_inps[3].value=$td.attr("week_class_time");
+              div_inps[4].value=$td.attr("class_time");
+          }else if(type=="add_course_message_list3")
+          {
+          // <label>教师职工号</label>
+          // <input type="text">
+          //     <label>课程编号</label>
+          //     <input type="text">
+          //     <label>学期-学年</label>
+          //     <input type="text">
+          //     <label>上课周次</label>
+          //     <input type="text">
+          //     <label>上课时间</label>
+          //     <input type="text">
+          //     <label>年级</label>
+          //     <input type="text">
+          //     <label>专业</label>
+          //     <input type="text">
+              div_inps[0].value=$td.attr("staff_number");
+              div_inps[1].value=$td.attr("course_number");
+              div_inps[2].value=$td.attr("term_year");
+              div_inps[3].value=$td.attr("week_class_time");
+              div_inps[4].value=$td.attr("class_time");
+              div_inps[5].value=$td.attr("grade");
+              div_inps[6].value=$td.attr("specialty");
+          }
+      // for (var i=0;i<div_inps.length;i++) {
+      // }
+   }
+}
+
+</script>
+<!--课程管理-->
+<script>
+
+</script>
+</body>
+
+</html>
